@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
-import { Book, Sword, Users, Scroll, Home, Plus, Edit2, Save, X } from 'lucide-react';
-
-const HandbookApp = () => {
-  const [activeSection, setActiveSection] = useState('home');
-  const [editMode, setEditMode] = useState(false);
-  const [editedContent, setEditedContent] = useState('');
-  
-  // Initial content - you can edit this directly in Edit Mode!
-  const [content, setContent] = useState({
-    home: {
-      title: "Welcome to NDTT",
-      body: `<h2>About This Game</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDTT Handbook</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState } = React;
+        
+        const HandbookApp = () => {
+          const [activeSection, setActiveSection] = useState('home');
+          const [editMode, setEditMode] = useState(false);
+          const [editedContent, setEditedContent] = useState('');
+          
+          const [content, setContent] = useState({
+            home: {
+              title: "Welcome to NDTT",
+              body: `<h2>About This Game</h2>
 <p>NDTT (Non-Descript Table Top RPG) is a community-driven fantasy role-playing game that empowers players to create their own custom classes, races, backstories, items, weapons, campaigns, and abilities. The core philosophy is creative freedom balanced with fair gameplay.</p>
 
 <h3>What Makes This Different?</h3>
@@ -21,11 +34,11 @@ const HandbookApp = () => {
 
 <h3>Campaign Persistence</h3>
 <p>Your character is locked during a campaign but carries forward to future adventures. Between campaigns, you can respec abilities, allowing your character to grow and adapt while maintaining continuity across your gaming experience.</p>`
-    },
-    
-    rules: {
-      title: "Core Rules",
-      body: `<h2>Core Attributes</h2>
+            },
+            
+            rules: {
+              title: "Core Rules",
+              body: `<h2>Core Attributes</h2>
 <p>Every character has six core attributes that define their capabilities:</p>
 
 <p><strong>Strength (STR)</strong> - Physical power and combat prowess. Adds directly to physical damage dealt.</p>
@@ -77,11 +90,11 @@ const HandbookApp = () => {
 <p>• Minimum/maximum damage ranges based on ability point investment</p>
 <p>• Elemental affinity integration</p>
 <p>• Detailed combat mechanics</p>`
-    },
-    
-    races: {
-      title: "Races",
-      body: `<h2>Available Races</h2>
+            },
+            
+            races: {
+              title: "Races",
+              body: `<h2>Available Races</h2>
 <p>The following races are currently available in NDTT. Each race has unique abilities and traits.</p>
 
 <h3>Human</h3>
@@ -98,126 +111,7 @@ const HandbookApp = () => {
 <p><strong>Languages:</strong> Eternasoul and one other language of your choice</p>
 <p><strong>Background:</strong> Ancient energy-based creatures from a dimension of complete darkness. After a catastrophic event, they fled to Eternia using a powerful energy-katana created by the inventor Exota. Now trapped in Eternia, they search for answers about their forced migration and seek either a way to return home or a new purpose in this world.</p>
 
-<h3>Eternagolem</h3>
-<p><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Unique Physiology:</strong> Blend of Eternasoul energy and golem construct, granting enhanced physical abilities and resistance to certain types of damage.</p>
-<p>• <strong>Golem Endurance:</strong> Do not need to sleep, eat, or breathe.</p>
-<p>• <strong>Ethereal Form:</strong> Can turn ethereal as a bonus action, becoming transparent and immune to non-magical weapons. In this form, has a fly speed of 20ft.</p>
-<p>• <strong>Golem Repair:</strong> Can repair itself over time, regaining hit points at the end of each long rest.</p>
-<p>• <strong>Katana Affinity:</strong> Can wield katanas with exceptional proficiency and skill.</p>
-<p>• <strong>Darkvision:</strong> Can see in the dark up to 60ft.</p>
-<p><strong>Languages:</strong> Eternasoul and Common</p>
-<p><strong>Background:</strong> A subrace created from genetic experiments where Eternasoul energy was infused with golem constructs. They exist between both worlds with unique abilities ideal for melee combat and protecting allies.</p>
-
-<h3>Squishion</h3>
-<p><strong>Size:</strong> Small | <strong>Speed:</strong> 25ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Organic Construct:</strong> Evolved from squishy fruits or vegetables, granting enhanced physical abilities and resistance to certain damage types.</p>
-<p>• <strong>Photosynthesis:</strong> Can photosynthesize sunlight, negating the need to eat, but still requiring water.</p>
-<p>• <strong>Squishy Defense:</strong> Can ooze a sticky, gooey substance as a reaction, providing temporary hit points and making them difficult to grapple.</p>
-<p>• <strong>Natural Camouflage:</strong> Can change color to match surroundings, providing advantage on stealth checks.</p>
-<p>• <strong>Fruit/Vegetable Affinity:</strong> Can communicate with fruits and vegetables.</p>
-<p><strong>Languages:</strong> Squishion, Sylvan</p>
-<p><strong>Background:</strong> Evolved from various squishy fruits and vegetables. Peaceful by nature, they avoid conflict but can defend themselves when necessary with their sticky defense mechanism.</p>
-
-<h3>Pickled Squishion</h3>
-<p><strong>Size:</strong> Small | <strong>Speed:</strong> 25ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Organic Construct:</strong> Evolved specifically from pickles, with enhanced abilities.</p>
-<p>• <strong>Photosynthesis:</strong> Can photosynthesize sunlight, requiring only water to survive.</p>
-<p>• <strong>Pickle Defense:</strong> Can excrete a pickling solution as a reaction, providing temporary hit points and resistance to acid damage. Makes them difficult to grapple.</p>
-<p>• <strong>Natural Camouflage:</strong> Can change color to match surroundings.</p>
-<p>• <strong>Pickle Affinity:</strong> Can communicate with pickles.</p>
-<p><strong>Languages:</strong> Squishion, Sylvan</p>
-<p><strong>Background:</strong> A subrace of Squishion that evolved from pickles. Peaceful and prefer to avoid conflict, using their unique pickling solution for defense when necessary.</p>
-
-<h3>Fungion</h3>
-<p><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Organic Construct:</strong> Evolved from mushrooms with enhanced physical abilities.</p>
-<p>• <strong>Mycelial Network:</strong> Can communicate with other fungi through a mycelial network, sharing information and resources.</p>
-<p>• <strong>Spore Defense:</strong> Can release a cloud of spores as a reaction, providing temporary hit points and resistance to poison damage.</p>
-<p>• <strong>Natural Camouflage:</strong> Can change color to match surroundings.</p>
-<p>• <strong>Squishion Predation:</strong> Natural inclination to hunt and consume Squishions, granting temporary hit points and nourishment.</p>
-<p><strong>Languages:</strong> Fungion, Sylvan</p>
-<p><strong>Background:</strong> Recently evolved from mushrooms, adaptable to various environments. Not inherently hostile, but will defend themselves if threatened.</p>
-
-<h3>Toxic Fungion</h3>
-<p><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Organic Construct:</strong> Enhanced mushroom evolution with toxic capabilities.</p>
-<p>• <strong>Mycelial Network:</strong> Can communicate with other fungi.</p>
-<p>• <strong>Poisonous Spore Defense:</strong> Releases poisonous spores as a reaction, providing temporary hit points and ability to poison other creatures.</p>
-<p>• <strong>Natural Camouflage:</strong> Can change color to match surroundings.</p>
-<p>• <strong>Squishion Predation:</strong> Hunt and consume Squishions for nourishment, but also poison them.</p>
-<p>• <strong>Absorb:</strong> As a bonus action, can absorb abilities from consumed Squishions, gaining one special ability. Can hold up to 10 absorbed abilities and switch between them as a bonus action.</p>
-<p><strong>Languages:</strong> Fungion, Sylvan</p>
-<p><strong>Background:</strong> A subrace of Fungion that evolved to produce toxic spores and absorb Squishion abilities. Adaptable and not inherently hostile.</p>
-
-<h3>Fungiclad</h3>
-<p><strong>Size:</strong> Small | <strong>Speed:</strong> 25ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Symbiotic Hybrid:</strong> Evolved from symbiotic combination of fungus and moss, granting enhanced abilities and damage resistance.</p>
-<p>• <strong>Photosynthesis:</strong> Can photosynthesize sunlight, requiring only water.</p>
-<p>• <strong>Toxic Defense:</strong> Can release toxic spores as a reaction, providing temporary hit points and poisoning nearby enemies.</p>
-<p>• <strong>Natural Alchemy:</strong> Natural affinity for alchemy; can create potions and poisons with ease.</p>
-<p>• <strong>Natural Camouflage:</strong> Can blend in with surroundings.</p>
-<p>• <strong>Plant Affinity:</strong> Can communicate with plants.</p>
-<p><strong>Languages:</strong> Fungiclad, Sylvan</p>
-<p><strong>Background:</strong> Rare hybrid race evolved from fungus and moss symbiosis. Excel in alchemy, healing, druid, ranger, and thief roles. As they age, they change in both appearance and abilities. Versatile in combat, capable of healing allies while poisoning enemies.</p>
-
-<h3>Lumichen</h3>
-<p><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Bioluminescence:</strong> Emit soft glow, providing dim light in 10-foot radius and darkvision.</p>
-<p>• <strong>Ancient Knowledge:</strong> Innate understanding of ancient lore and magic.</p>
-<p>• <strong>Photosynthesis:</strong> Can harness sun energy to recover from injury.</p>
-<p>• <strong>Fungal Resistance:</strong> Resistance to fungal diseases and poisons.</p>
-<p>• <strong>Natural Camouflage:</strong> Can blend with surroundings.</p>
-<p><strong>Languages:</strong> Lumichen, Primordial</p>
-<p><strong>Background:</strong> Ancient and mysterious race with bioluminescent glow and deep understanding of ancient magic. Known for wisdom and often act as advisors. Excel in knowledge, support, and defense roles.</p>
-
-<h3>Lumilichen</h3>
-<p><strong>Size:</strong> Small | <strong>Speed:</strong> 25ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Bioluminescence:</strong> Emit soft, adjustable glow for signaling or hiding, providing dim light in 10-foot radius.</p>
-<p>• <strong>Photosynthesis:</strong> Can photosynthesize sunlight, negating need to eat but requiring water.</p>
-<p>• <strong>Lichenous Growth:</strong> Can grow lichenous armor as bonus action, granting temporary hit points and resistance to bludgeoning, piercing, and slashing damage.</p>
-<p>• <strong>Natural Camouflage:</strong> Can change color to match surroundings.</p>
-<p>• <strong>Fungal Symbiosis:</strong> Symbiotic relationship with fungi grants poison resistance and ability to communicate with fungi.</p>
-<p><strong>Languages:</strong> Lumilichen, Sylvan</p>
-<p><strong>Background:</strong> Ancient race evolved from symbiosis between fungi and algae. Peaceful and wise, often serving as advisors or healers. Ideal for stealth and support roles.</p>
-
-<h3>Roshuman</h3>
-<p><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Rooster Head:</strong> Head and facial features of a rooster, including comb and wattle.</p>
-<p>• <strong>Feathered Body:</strong> Lightly feathered body similar to bird plumage.</p>
-<p>• <strong>Talons:</strong> Sharp talons on hands and feet adapted for human-like use, can be used as natural weapons.</p>
-<p>• <strong>Powerful Build:</strong> Tall stature and build of a fierce human knight.</p>
-<p>• <strong>Morning Person:</strong> Natural affinity for early mornings, gaining advantage on all checks made before noon.</p>
-<p>• <strong>Battlecry:</strong> Can let out powerful battlecry as bonus action, granting themselves and allies within 30ft temporary hit points.</p>
-<p>• <strong>Razor Talons:</strong> Natural weapons dealing slashing damage.</p>
-<p>• <strong>Fowl Play:</strong> Can communicate with birds and have advantage on animal handling checks. Can attempt to tame birds as bonus action.</p>
-<p>• <strong>Proud Heritage:</strong> Strong sense of honor and pride. Proficiency in one weapon of choice.</p>
-<p><strong>Languages:</strong> Roshuman, Common</p>
-<p><strong>Background:</strong> Rare and proud race descended from powerful warriors. Despite their fearsome appearance, they are respected members of society, often serving as knights and soldiers. Known for loyalty, bravery, and strong sense of honor.</p>
-
-<h3>Smogblimb (The Multilingual Gardeners)</h3>
-<p><strong>Size:</strong> Small | <strong>Speed:</strong> 30ft (walking, swimming)</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Plant Symbiosis:</strong> Skin supports growth of plant life, forming natural symbiosis with environment.</p>
-<p>• <strong>Bio-luminescent Eyes:</strong> Large, luminescent eyes that emit soft glow, aiding vision and fostering plant growth.</p>
-<p>• <strong>Retractable Vines:</strong> Can use vines as tools and bio-luminescent markers.</p>
-<p>• <strong>Haven Creation:</strong> Can transform polluted areas into havens of clean air, using their bodies as living planters that purify environment.</p>
-<p>• <strong>Floral Camouflage:</strong> Can blend seamlessly into vegetation.</p>
-<p>• <strong>Resourceful Transformation:</strong> Can temporarily transform creatures into docile farm animals for resource collection.</p>
-<p>• <strong>Eco-Echolocation:</strong> Use bio-luminescent signals to communicate with plant life.</p>
-<p>• <strong>Human Speech:</strong> Learned human speech through trades, allowing negotiations and cooperation.</p>
-<p>• <strong>Master Gardeners:</strong> Create enchanted, sustainable landscapes and sustain themselves through cultivation.</p>
-<p><strong>Languages:</strong> Smogblimb (bio-luminescent signals, harmonious hums, rustling leaves), Human, Common</p>
-<p><strong>Background:</strong> Live in tight-knit gardening communities, building magical towns amidst urban decay. Transform environments into lush gardens, filtering and purifying air. Bridge-builders between different inhabitants of their world.</p>
+<p style="margin-top: 20px;"><em>Note: Additional races including Eternagolem, Squishion, Pickled Squishion, Fungion, Toxic Fungion, Fungiclad, Lumichen, Lumilichen, Roshuman, and Smogblimb are available. Full details coming soon!</em></p>
 
 <h2>Custom Race Guidelines</h2>
 <p><strong>Balance:</strong> Custom races should be balanced with pre-existing races. They should not have abilities or traits that are overwhelmingly powerful.</p>
@@ -227,11 +121,11 @@ const HandbookApp = () => {
 <p><strong>Originality:</strong> Custom races should be original. Inspiration is encouraged, but if making a sub-race or offshoot of someone else's design, they must be credited.</p>
 <p><strong>Play-testing:</strong> Custom races should be play-tested to ensure balance and fun.</p>
 <p><strong>Moderation:</strong> Game developers reserve the right to moderate custom races for official data. Personal rules between friends or family groups are always acceptable.</p>`
-    },
-    
-    classes: {
-      title: "Classes",
-      body: `<h2>Classes in NDTT</h2>
+            },
+            
+            classes: {
+              title: "Classes",
+              body: `<h2>Classes in NDTT</h2>
 <p>Unlike traditional RPGs, NDTT doesn't strictly define classes. Instead, classes emerge organically from your ability choices, attribute distribution, and playstyle. However, we provide archetypal class concepts as inspiration and starting points.</p>
 
 <h3>Martial Archetypes</h3>
@@ -265,274 +159,189 @@ const HandbookApp = () => {
 <p><strong>Community Contributions:</strong> Players are encouraged to share their unique class concepts, ability combinations, and creative builds. As long as abilities follow the core balance mechanics (higher cost = harder to hit), anything goes!</p>
 
 <p><strong>Balance Philosophy:</strong> The ability point system naturally prevents overpowered builds. If you invest everything in one massive ability, you're vulnerable. If you spread too thin, you lack impact. Finding the sweet spot is part of the game.</p>`
-    },
-    
-    lore: {
-      title: "World & Lore",
-      body: `<h2>The World of Eternia</h2>
+            },
+            
+            lore: {
+              title: "World & Lore",
+              body: `<h2>The World of Eternia</h2>
 <p>Eternia is a vast and varied world, shaped by powerful forces that have molded its landscapes and its inhabitants.</p>
 
 <h3>Geography</h3>
-<p>The world is mostly composed of a large continent that stretches across the northern hemisphere, bordered by vast oceans to the east and west, and towering mountain ranges to the north and south. The central region of the continent is a vast plain, home to many of the world's major settlements and cultures. The eastern and western regions are dotted with rugged hills and deep valleys, making them difficult to traverse.</p>
-
-<h3>Climate</h3>
-<p>Climate in Eternia is varied:</p>
-<p>• <strong>Northern Regions:</strong> Colder with snowy and icy conditions</p>
-<p>• <strong>Southern Regions:</strong> Warmer with tropical forests and deserts</p>
-<p>• <strong>Central Region:</strong> Milder, with a mix of deciduous and coniferous forests, grasslands and wetlands</p>
-
-<h3>Weather Patterns</h3>
-<p>The northern regions experience long and harsh winters, while the southern regions have long and hot summers. The central region experiences milder seasons with a mix of rain and sunshine throughout the year. The coastlines are affected by strong winds, and storms can be common during certain times of the year. The mountainous regions experience frequent snowfall, making them inhospitable to most life forms.</p>
+<p>The world is mostly composed of a large continent that stretches across the northern hemisphere, bordered by vast oceans to the east and west, and towering mountain ranges to the north and south.</p>
 
 <h3>Otherworldly Regions</h3>
 
 <h4>The Eternal Storms</h4>
-<p>Located on the western coast, this region is characterized by constant storms with lightning and thunder that never subside. The storms are so intense they have formed their own ecosystem, with creatures adapted to survive in such conditions. The area is rich in resources that can harness the power of the storms, making it valuable but extremely dangerous to explore.</p>
+<p>Located on the western coast, characterized by constant storms with lightning and thunder that never subside.</p>
 
 <h4>The Eternal Dunes</h4>
-<p>A desert region on the southern part of the continent, characterized by immense sand dunes that stretch as far as the eye can see. The dunes constantly shift, making navigation difficult. The extreme heat and lack of water make it inhospitable to most life. However, hidden within the dunes is a secret oasis where water is abundant and creatures and plants that cannot be found anywhere else in Eternia thrive.</p>
+<p>Immense sand dunes in the southern region with a hidden oasis containing unique life.</p>
 
 <h4>The Eternal Glacier</h4>
-<p>A massive glacier located on the northern part of the continent, characterized by freezing temperatures and icy conditions. The glacier is home to a unique ecosystem with creatures and plants adapted to harsh conditions. It's rich in valuable resources like ice and minerals, but constant avalanches and blizzards make it extremely dangerous to explore.</p>
+<p>A massive glacier in the north with unique ecosystems and valuable resources.</p>
 
 <h4>The Eternal Shadow</h4>
-<p>Located in the central region, this biome is rich in corrupted magic and filled with undead and cursed creatures. A thick fog that never lifts makes visibility nearly impossible beyond a few feet. The corrupted magic has twisted the creatures and plants that live there into nightmarish forms.</p>
-<p>Home to zombies, skeletons, ghosts, and other terrifying monsters drawn to the corrupt magic. Twisted versions of plants and animals inhabit the region, such as giant carnivorous plants that move on their own and giant spiders that shoot webs of corrosive acid.</p>
-<p>Ancient ruins and abandoned temples from before the corruption dot the landscape, filled with traps and dangerous creatures, but also containing powerful artifacts and ancient knowledge. This area is extremely dangerous and not for the faint of heart.</p>
+<p>Central region filled with corrupted magic, undead creatures, and ancient ruins.</p>
 
 <h2>Urzallism: The Eight Gods</h2>
-<p>Urzallism is the primary religion of Eternia, based on the worship of eight gods representing the elements, forces, and energies of the world. These gods were created by the Creator, a being of pure energy and light, who divided itself into eight pieces to better watch over and guide the world.</p>
-
-<h3>The Creation Story</h3>
-<p>In a time long forgotten, the Creator looked upon the world and saw that while it was good, it was imperfect and lacking in fundamental ways. The Creator divided itself into eight pieces, each imbued with a different aspect of its power and energy, creating eight powerful gods to watch over different aspects of existence.</p>
+<p>Urzallism is the primary religion of Eternia, based on worship of eight gods representing the elements, forces, and energies of the world.</p>
 
 <h3>The Eight Gods</h3>
+<p><strong>Arid</strong> - Goddess of Air</p>
+<p><strong>Tori</strong> - Goddess of Water</p>
+<p><strong>Mark</strong> - God of Earth</p>
+<p><strong>Jarius</strong> - God of Fire</p>
+<p><strong>Seishin</strong> - God of Spirit</p>
+<p><strong>Hikari</strong> - God of Light</p>
+<p><strong>Avarielle</strong> - Goddess of Darkness</p>
+<p><strong>Kontiferus</strong> - God of Judgement</p>
 
-<h4>Arid - Goddess of Air</h4>
-<p>A powerful and graceful deity who commands the winds and sky. Often depicted as a beautiful woman with wings riding on the back of a great eagle. Born from the breath of the first living beings, she emerged from the mists of creation and shaped the world by lifting mountains, carving valleys, and creating the sky and clouds. Known for wisdom, intelligence, fairness, and justice. A master of strategy and planning, often sought for advice by other gods and mortals alike.</p>
-
-<h4>Tori - Goddess of Water</h4>
-<p>A powerful and mysterious deity who commands the oceans and rivers. Often depicted as a beautiful woman with long, flowing hair riding on the back of a great dolphin. Born from the tears of the first living beings, she emerged from the depths of the sea and created the rivers, lakes, and filled the oceans with life. Known for kindness, compassion, and healing. A master of rejuvenation who seeks to bring peace and harmony to the world.</p>
-
-<h4>Mark - God of Earth</h4>
-<p>A powerful and strong deity who commands the land and forests. Often depicted as a mighty warrior wielding a great axe and riding on the back of a great bear. Born from the first seeds of life, he emerged from the soil and created the forests, mountains, and filled the land with life. Known for strength, courage, fierce loyalty, and unwavering devotion. A master of battle and war who always stands up for what he believes in.</p>
-
-<h4>Jarius - God of Fire</h4>
-<p>A powerful and fiery deity who commands flames and heat. Often depicted as a fierce dragon who breathes fire and roars with power. Born from the first sparks of life, he emerged from the depths of the earth and created volcanoes, lightning, and filled the world with heat and light. Known for passion, energy, boldness, and daring. A master of creativity and innovation who seeks to push boundaries and explore new horizons.</p>
-
-<h4>Seishin - God of Spirit</h4>
-<p>A powerful and wise deity who commands the essence of life and the power of the soul. Often depicted as a wise old man carrying a staff and a book of knowledge. Born from the first whispers of life, he emerged from the realm of the spirits and created the concepts of good and evil, filling the world with meaning and purpose. Known for wisdom, insight, and deep understanding of the spiritual realm. A master of divination and prophecy who helps others find their path in life.</p>
-
-<h4>Hikari - God of Light</h4>
-<p>A powerful and radiant deity who commands the sun and stars. Often depicted as a shining sun radiating warmth and light. Born from the first glimmers of life, he emerged from the darkness and created day and night, filling the world with light and warmth. Known for radiance, warmth, generosity, and kindness. A master of growth and prosperity who seeks to bring hope and happiness to the world.</p>
-
-<h4>Avarielle - Goddess of Darkness</h4>
-<p>A powerful and mysterious deity who commands shadows and secrets. Often depicted as a hooded figure who moves in shadows and knows all. Born from the first secrets of life, she emerged from the depths of night and created mysteries and secrets, filling the world with mystery and intrigue. Known for cunning, intelligence, and hidden knowledge. A master of deception and manipulation who seeks to keep the balance between light and darkness.</p>
-
-<h4>Kontiferus - God of Judgement</h4>
-<p>A powerful and just deity who commands the scales of justice and the fate of mortals. Often depicted as a great judge sitting on a throne of gold, holding the scales of justice. Born from the first thoughts of justice and fairness, he emerged from the realm of the gods and created laws and morals, filling the world with justice and righteousness. Known as the Karma Enforcer - fair and impartial, but stern and unyielding. A master of justice and judgement who upholds the law and brings justice to those who deserve it.</p>
-
-<h3>Worship and Practice</h3>
-<p>Urzallism teaches that these eight gods represent the eight pillars of a good life. Followers pay respects through good deeds, kindness, acceptance, understanding, love, diversity, respect, and freedom.</p>
-
-<p><strong>Making Requests:</strong> To make a request or prayer, one must first do something nice for someone or something beneficial to better the world. If the request is not founded in hatred and is within the god's power, it will be granted. The believer's faith greatly affects the outcome.</p>
-
-<p><strong>Divine Philosophy:</strong> The gods do not play favorites and focus on love of all things while maintaining a healthy balance of chaos. They are not infallible and are subject to the same weaknesses and flaws as mortals, making them relatable guides rather than distant overlords.</p>
-
-<p><strong>Warning About Kontiferus:</strong> He should only be invoked when absolutely necessary. If invoked for personal judgement, he will not hesitate to judge the invoker as well. He is the God of Judgement and does not take his role lightly.</p>
-
-<h3>Elemental Affinities and the Gods</h3>
-<p>The elemental affinity system in NDTT directly mirrors the eight gods of Urzallism:</p>
-<p>• Air Affinity → Arid</p>
-<p>• Water Affinity → Tori</p>
-<p>• Earth Affinity → Mark</p>
-<p>• Fire Affinity → Jarius</p>
-<p>• Spirit Affinity → Seishin</p>
-<p>• Light Affinity → Hikari</p>
-<p>• Dark Affinity → Avarielle</p>
-<p>• Judgement → Kontiferus</p>
-
-<p>Characters with high affinity to an element may feel a stronger connection to their corresponding deity, and the gods may take particular interest in those who embody their domain.</p>
-
-<h2>Historical Notes</h2>
-<p>As the centuries passed, the gods of Urzallism grew in power and influence, granting blessings to the good and righteous, and punishing those who were not. Eventually their power began to fade, and they retreated to their own realms, leaving the world to its own devices. However, their legacy lives on, and their followers continue to worship them and pray for their blessings. Though the gods may have retreated, their power still remains, waiting for those who are worthy to call upon them once again.</p>`
-    },
-    
-    homebrew: {
-      title: "Homebrew Content",
-      body: `<h2>Community Creations</h2>
-<p>This section will eventually feature player-created content.</p>
-
-<p><em>For now, you can use this space to showcase experimental rules, optional content, or note what kinds of homebrew you're interested in featuring.</em></p>
-
-<h3>Submission Guidelines (Coming Soon)</h3>
-<p>Eventually, outline how players can submit their own races, classes, items, or other content for consideration.</p>`
-    }
-  });
-
-  const sections = [
-    { id: 'home', name: 'Home', icon: Home },
-    { id: 'rules', name: 'Core Rules', icon: Book },
-    { id: 'races', name: 'Races', icon: Users },
-    { id: 'classes', name: 'Classes', icon: Sword },
-    { id: 'lore', name: 'Lore', icon: Scroll },
-    { id: 'homebrew', name: 'Community', icon: Plus },
-    { id: 'workshop', name: 'Mechanics Workshop', icon: Edit2 }
-  ];
-
-  const handleEdit = () => {
-    setEditedContent(content[activeSection].body);
-    setEditMode(true);
-  };
-
-  const handleSave = () => {
-    setContent({
-      ...content,
-      [activeSection]: {
-        ...content[activeSection],
-        body: editedContent
-      }
-    });
-    setEditMode(false);
-  };
-
-  const handleCancel = () => {
-    setEditMode(false);
-    setEditedContent('');
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
-      {/* Header */}
-      <header className="bg-slate-950 border-b border-slate-700 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
-                NDTT
-              </h1>
-              <p className="text-slate-400 mt-2">Non-Descript Table Top RPG - A Community-Driven System</p>
-            </div>
-            <div className="bg-amber-600 text-white px-4 py-2 rounded-lg border-2 border-amber-500 shadow-lg">
-              <p className="font-bold text-sm">⚠️ WORK IN PROGRESS</p>
-              <p className="text-xs">Active Development</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="flex max-w-7xl mx-auto">
-        {/* Sidebar Navigation */}
-        <nav className="w-64 bg-slate-800 border-r border-slate-700 min-h-screen p-4">
-          <ul className="space-y-2">
-            {sections.map(section => {
-              const Icon = section.icon;
-              return (
-                <li key={section.id}>
-                  <button
-                    onClick={() => {
-                      setActiveSection(section.id);
-                      setEditMode(false);
-                    }}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                      activeSection === section.id
-                        ? 'bg-amber-600 text-white shadow-lg'
-                        : 'text-slate-300 hover:bg-slate-700 hover:text-white'
-                    }`}
-                  >
-                    <Icon size={20} />
-                    <span className="font-medium">{section.name}</span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          
-          <div className="mt-8 p-4 bg-slate-900 rounded-lg border border-slate-700">
-            <p className="text-xs text-slate-400 leading-relaxed">
-              <strong className="text-slate-300">Quick Tip:</strong> Click the "Edit" button 
-              to modify any section. Your changes are saved instantly!
-            </p>
-          </div>
-        </nav>
-
-        {/* Main Content Area */}
-        <main className="flex-1 p-8">
-          <div className="bg-slate-800 rounded-lg shadow-xl p-8 border border-slate-700">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-3xl font-bold text-amber-400">
-                {content[activeSection].title}
-              </h2>
-              
-              {!editMode ? (
-                <button
-                  onClick={handleEdit}
-                  className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
-                >
-                  <Edit2 size={18} />
-                  Edit
-                </button>
-              ) : (
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleSave}
-                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
-                  >
-                    <Save size={18} />
-                    Save
-                  </button>
-                  <button
-                    onClick={handleCancel}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
-                  >
-                    <X size={18} />
-                    Cancel
-                  </button>
-                </div>
-              )}
-            </div>
+<p><em>Full deity descriptions and worship practices available in the complete handbook.</em></p>`
+            },
             
-            {!editMode ? (
-              <div 
-                className="prose prose-invert prose-slate max-w-none"
-                dangerouslySetInnerHTML={{ __html: content[activeSection].body }}
-                style={{ lineHeight: '1.8' }}
-              />
-            ) : (
-              <div>
-                <textarea
-                  value={editedContent}
-                  onChange={(e) => setEditedContent(e.target.value)}
-                  className="w-full h-96 p-4 bg-slate-900 text-slate-100 border border-slate-600 rounded-lg font-mono text-sm"
-                  placeholder="Enter your content here. You can use HTML tags like <h3>, <p>, <strong>, etc."
-                />
-                <div className="mt-4 p-4 bg-slate-900 rounded-lg border border-slate-700">
-                  <p className="text-sm text-slate-400">
-                    <strong>Formatting Guide:</strong><br/>
-                    • Use <code className="bg-slate-800 px-1">&lt;h2&gt;Big Heading&lt;/h2&gt;</code> for main headings<br/>
-                    • Use <code className="bg-slate-800 px-1">&lt;h3&gt;Subheading&lt;/h3&gt;</code> for subheadings<br/>
-                    • Use <code className="bg-slate-800 px-1">&lt;p&gt;Text&lt;/p&gt;</code> for paragraphs<br/>
-                    • Use <code className="bg-slate-800 px-1">&lt;strong&gt;Bold&lt;/strong&gt;</code> for bold text<br/>
-                    • Use <code className="bg-slate-800 px-1">&lt;em&gt;Italic&lt;/em&gt;</code> for italic text
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-          
-          {!editMode && (
-            <div className="mt-6 p-4 bg-slate-900 rounded-lg border border-slate-700">
-              <p className="text-sm text-slate-400">
-                💡 <strong>Note:</strong> Your edits are saved in this session only. 
-                To keep your changes permanently, you'll need to export or host this page. 
-                We can help with that when you're ready!
-              </p>
-            </div>
-          )}
-        </main>
-      </div>
-    </div>
-  );
-};
+            community: {
+              title: "Community Content",
+              body: `<h2>Community-Driven Development</h2>
+<p>NDTT thrives on player creativity and contributions. This is where the magic happens - where players share their custom races, unique ability builds, homebrew items, and creative interpretations of the rules.</p>
 
-export default HandbookApp;
+<h3>What You Can Contribute</h3>
+<p><strong>Custom Races:</strong> Design unique races with distinct traits and lore.</p>
+<p><strong>Ability Builds:</strong> Share your character's ability loadout and strategy.</p>
+<p><strong>Items & Equipment:</strong> Create weapons, armor, and magical items.</p>
+<p><strong>Campaign Settings:</strong> Develop entire worlds and storylines.</p>
+<p><strong>House Rules:</strong> Propose modifications or additions to core mechanics.</p>
+
+<h3>Submission Guidelines</h3>
+<p><strong>Balance:</strong> Content should be balanced and not overwhelmingly powerful.</p>
+<p><strong>Originality:</strong> Create original content or properly credit sources of inspiration.</p>
+<p><strong>Lore Integration:</strong> Content should fit within existing game worlds or clearly define its own setting.</p>
+<p><strong>Clarity:</strong> Explain your content clearly so others can use and enjoy it.</p>
+<p><strong>Play-testing:</strong> Test your content in actual gameplay before sharing.</p>
+
+<h3>Community Philosophy</h3>
+<p>NDTT is built by its players. Official moderation exists only for curated content libraries - your personal games are yours to shape!</p>`
+            },
+            
+            workshop: {
+              title: "Mechanics Workshop",
+              body: `<h2>Ability Creation Testing Ground</h2>
+<p>This section is for experimenting with different formulas and mechanics for the Ability Point system.</p>
+
+<h3>Core Questions Being Explored</h3>
+
+<h4>1. Ability Power Scaling</h4>
+<p><strong>Question:</strong> How does ability point cost translate to power?</p>
+<p><strong>Options being tested:</strong></p>
+<p>• Linear scaling (2 points = 2d6 damage, 4 points = 4d6 damage)</p>
+<p>• Exponential scaling (2 points = 1d8, 4 points = 3d8, 8 points = 7d8)</p>
+<p>• Tiered system (1-3 points = Tier 1, 4-6 = Tier 2, 7-10 = Tier 3)</p>
+
+<h4>2. Success Difficulty</h4>
+<p><strong>Question:</strong> How much harder should high-cost abilities be to hit?</p>
+<p><strong>Options:</strong></p>
+<p>• DC = 10 + (Ability Cost)</p>
+<p>• DC = 8 + (Ability Cost × 1.5)</p>
+<p>• Flat tiers based on cost ranges</p>
+
+<h4>3. Damage Range Formula</h4>
+<p><strong>Question:</strong> Should abilities have minimum guaranteed damage?</p>
+
+<h4>4. Resource Cost Formulas</h4>
+<p><strong>Question:</strong> How much HP/DEF/etc should using an ability cost?</p>
+
+<h3>Example Ability Builds to Test</h3>
+<p><strong>The Glass Cannon (10-point ability)</strong> - Maximum damage but very hard to hit</p>
+<p><strong>The Specialist (5+5)</strong> - Two medium abilities for balance</p>
+<p><strong>The Versatile (5×2)</strong> - Multiple reliable abilities</p>
+
+<h3>Community Input Needed</h3>
+<p>Have ideas for ability formulas? Tested a build? Share your findings to help refine the system!</p>`
+            }
+          });
+
+          const sections = [
+            { id: 'home', name: 'Home' },
+            { id: 'rules', name: 'Core Rules' },
+            { id: 'races', name: 'Races' },
+            { id: 'classes', name: 'Classes' },
+            { id: 'lore', name: 'Lore' },
+            { id: 'community', name: 'Community' },
+            { id: 'workshop', name: 'Mechanics Workshop' }
+          ];
+
+          return (
+            <div style={{minHeight: '100vh', background: 'linear-gradient(to bottom right, #0f172a, #1e293b, #0f172a)', color: '#f1f5f9'}}>
+              <header style={{background: '#020617', borderBottom: '1px solid #334155', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem'}}>
+                <div style={{maxWidth: '80rem', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                  <div>
+                    <h1 style={{fontSize: '2.25rem', fontWeight: 'bold', background: 'linear-gradient(to right, #fbbf24, #f97316)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
+                      NDTT
+                    </h1>
+                    <p style={{color: '#94a3b8', marginTop: '0.5rem'}}>Non-Descript Table Top RPG - A Community-Driven System</p>
+                  </div>
+                  <div style={{background: '#d97706', color: 'white', padding: '0.5rem 1rem', borderRadius: '0.5rem', border: '2px solid #f59e0b'}}>
+                    <p style={{fontWeight: 'bold', fontSize: '0.875rem', margin: 0}}>⚠️ WORK IN PROGRESS</p>
+                    <p style={{fontSize: '0.75rem', margin: 0}}>Active Development</p>
+                  </div>
+                </div>
+              </header>
+
+              <div style={{display: 'flex', maxWidth: '80rem', margin: '0 auto'}}>
+                <nav style={{width: '16rem', background: '#1e293b', borderRight: '1px solid #334155', minHeight: 'calc(100vh - 120px)', padding: '1rem'}}>
+                  <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
+                    {sections.map(section => (
+                      <li key={section.id} style={{marginBottom: '0.5rem'}}>
+                        <button
+                          onClick={() => setActiveSection(section.id)}
+                          style={{
+                            width: '100%',
+                            textAlign: 'left',
+                            padding: '0.75rem 1rem',
+                            borderRadius: '0.5rem',
+                            border: 'none',
+                            cursor: 'pointer',
+                            background: activeSection === section.id ? '#d97706' : 'transparent',
+                            color: activeSection === section.id ? 'white' : '#cbd5e1',
+                            transition: 'all 0.2s'
+                          }}
+                          onMouseOver={(e) => {
+                            if (activeSection !== section.id) {
+                              e.target.style.background = '#334155';
+                              e.target.style.color = 'white';
+                            }
+                          }}
+                          onMouseOut={(e) => {
+                            if (activeSection !== section.id) {
+                              e.target.style.background = 'transparent';
+                              e.target.style.color = '#cbd5e1';
+                            }
+                          }}
+                        >
+                          {section.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+
+                <main style={{flex: 1, padding: '2rem'}}>
+                  <div style={{background: '#1e293b', borderRadius: '0.5rem', padding: '2rem', border: '1px solid #334155'}}>
+                    <h2 style={{fontSize: '1.875rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#fbbf24'}}>
+                      {content[activeSection].title}
+                    </h2>
+                    
+                    <div 
+                      dangerouslySetInnerHTML={{ __html: content[activeSection].body }}
+                      style={{lineHeight: '1.8'}}
+                    />
+                  </div>
+                </main>
+              </div>
+            </div>
+          );
+        };
+
+        ReactDOM.render(<HandbookApp />, document.getElementById('root'));
+    </script>
+</body>
+</html>
