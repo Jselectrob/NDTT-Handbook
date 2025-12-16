@@ -419,34 +419,37 @@
             
             workshop: `
                 <h2>Mechanics Workshop</h2>
-                <p>Here's the finalized Ability Point system mechanics for damage-based abilities.</p>
+                <p>Here's the finalized Ability Point system mechanics for different ability types.</p>
                 
-                <h3>Ability Creation Process</h3>
+                <h3>Damage/Healing Abilities (STR/DEF/VIT)</h3>
+                
+                <h4>Ability Creation Process</h4>
                 <p><strong>Step 1:</strong> Decide how many Ability Points to invest (1-10 AP maximum per ability)</p>
-                <p><strong>Step 2:</strong> Roll d20 to determine your ability's permanent base damage</p>
+                <p><strong>Step 2:</strong> Roll d10 to determine your ability's permanent base damage</p>
                 <p><strong>Step 3:</strong> Use the table below to find your damage range</p>
                 
                 <div class="card">
-                    <div class="card-header">Damage Ranges (Creation Roll)</div>
+                    <div class="card-header">Damage Ranges (Creation d10 Roll)</div>
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1rem;">
                         <div><strong style="color: #fbbf24;">1 AP:</strong> 1-10 damage</div>
-                        <div><strong style="color: #fbbf24;">2 AP:</strong> 3-13 damage</div>
-                        <div><strong style="color: #fbbf24;">3 AP:</strong> 6-16 damage</div>
-                        <div><strong style="color: #fbbf24;">4 AP:</strong> 10-20 damage</div>
-                        <div><strong style="color: #fbbf24;">5 AP:</strong> 15-25 damage</div>
-                        <div><strong style="color: #fbbf24;">6 AP:</strong> 21-31 damage</div>
-                        <div><strong style="color: #fbbf24;">7 AP:</strong> 27-37 damage</div>
-                        <div><strong style="color: #fbbf24;">8 AP:</strong> 34-44 damage</div>
-                        <div><strong style="color: #fbbf24;">9 AP:</strong> 42-52 damage</div>
-                        <div><strong style="color: #fbbf24;">10 AP:</strong> 51-61 damage</div>
+                        <div><strong style="color: #fbbf24;">2 AP:</strong> 4-13 damage</div>
+                        <div><strong style="color: #fbbf24;">3 AP:</strong> 7-16 damage</div>
+                        <div><strong style="color: #fbbf24;">4 AP:</strong> 11-20 damage</div>
+                        <div><strong style="color: #fbbf24;">5 AP:</strong> 16-25 damage</div>
+                        <div><strong style="color: #fbbf24;">6 AP:</strong> 22-31 damage</div>
+                        <div><strong style="color: #fbbf24;">7 AP:</strong> 28-37 damage</div>
+                        <div><strong style="color: #fbbf24;">8 AP:</strong> 35-44 damage</div>
+                        <div><strong style="color: #fbbf24;">9 AP:</strong> 43-52 damage</div>
+                        <div><strong style="color: #fbbf24;">10 AP:</strong> 52-61 damage</div>
                     </div>
+                    <p style="margin-top: 1rem; font-style: italic; color: #94a3b8;">Roll 1 on d10 = minimum damage, Roll 10 on d10 = maximum damage</p>
                 </div>
 
-                <h3>Combat Usage</h3>
+                <h4>Combat Usage</h4>
                 <p>When using your ability in combat, roll d20 "to hit". You must meet or exceed the difficulty based on your ability's cost:</p>
                 
                 <div class="card">
-                    <div class="card-header">To Hit Difficulty</div>
+                    <div class="card-header">To Hit Difficulty (Combat d20 Roll)</div>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1rem;">
                         <div><strong style="color: #fbbf24;">1 AP:</strong> Need 2+ (95% chance)</div>
                         <div><strong style="color: #fbbf24;">2 AP:</strong> Need 4+ (85% chance)</div>
@@ -461,35 +464,144 @@
                     </div>
                 </div>
 
-                <h3>Damage Bonus</h3>
-                <p>If you hit, you deal your permanent base damage PLUS a bonus:</p>
-                <p><strong>Bonus = (Your Roll - Minimum Needed) × 1%</strong></p>
+                <h4>Damage Bonus</h4>
+                <p>If you hit, you deal your permanent base damage PLUS a bonus based on how well you rolled:</p>
+                <p><strong>Bonus Damage = (Your Roll - Minimum Needed) + AP Cost</strong></p>
+                <p>Higher AP abilities get better bonuses for rolling well!</p>
                 
                 <div class="card">
-                    <div class="card-header">Example: 5 AP Ability</div>
-                    <p><strong>Creation:</strong> You spend 5 AP and roll 18 on d20 → Your permanent base damage is 23</p>
-                    <p style="margin-top: 1rem;"><strong>Combat Round 1:</strong> Roll 12 to hit (need 10+) → HIT! Deal 23 + 2% = 23.46 damage</p>
-                    <p><strong>Combat Round 2:</strong> Roll 8 to hit (need 10+) → MISS!</p>
-                    <p><strong>Combat Round 3:</strong> Roll 19 to hit (need 10+) → HIT! Deal 23 + 9% = 25.07 damage</p>
+                    <div class="card-header">Bonus Damage Examples</div>
+                    <p><strong style="color: #fbbf24;">1 AP Ability (need 2+ to hit):</strong></p>
+                    <p>• Roll 3 (1 above) = +2 damage (1 + 1 AP)</p>
+                    <p>• Roll 10 (8 above) = +9 damage (8 + 1 AP)</p>
+                    <p>• Roll 20 (18 above) = +19 damage (18 + 1 AP)</p>
+                    
+                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">5 AP Ability (need 10+ to hit):</strong></p>
+                    <p>• Roll 11 (1 above) = +6 damage (1 + 5 AP)</p>
+                    <p>• Roll 15 (5 above) = +10 damage (5 + 5 AP)</p>
+                    <p>• Roll 20 (10 above) = +15 damage (10 + 5 AP)</p>
+                    
+                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">10 AP Ability (need 18+ to hit):</strong></p>
+                    <p>• Roll 19 (1 above) = +11 damage (1 + 10 AP)</p>
+                    <p>• Roll 20 (2 above) = +12 damage (2 + 10 AP)</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Example: 5 AP Damage Ability</div>
+                    <p><strong>Creation:</strong> You spend 5 AP and roll 8 on d10 → Your permanent base damage is 23 (16+7)</p>
+                    <p style="margin-top: 1rem;"><strong>Combat Round 1:</strong> Roll 12 on d20 to hit (need 10+) → HIT!</p>
+                    <p>• Base damage = 23</p>
+                    <p>• Rolled 2 above minimum: Bonus = 2 + 5 AP = +7 damage</p>
+                    <p>• Total damage = 23 + 7 = <strong>30 damage</strong></p>
+                    
+                    <p style="margin-top: 1rem;"><strong>Combat Round 2:</strong> Roll 8 on d20 to hit (need 10+) → MISS!</p>
+                    
+                    <p style="margin-top: 1rem;"><strong>Combat Round 3:</strong> Roll 19 on d20 to hit (need 10+) → HIT!</p>
+                    <p>• Base damage = 23</p>
+                    <p>• Rolled 9 above minimum: Bonus = 9 + 5 AP = +14 damage</p>
+                    <p>• Total damage = 23 + 14 = <strong>37 damage</strong></p>
+                </div>
+
+                <h3>Buff/Debuff/Chance Abilities (INT/WIS/CHA)</h3>
+                
+                <h4>Ability Creation Process</h4>
+                <p><strong>Step 1:</strong> Decide how many Ability Points to invest (1-10 AP maximum per ability)</p>
+                <p><strong>Step 2:</strong> Roll d20 to determine your ability's permanent success percentage</p>
+                <p><strong>Step 3:</strong> Use the table below to find your success percentage range</p>
+                
+                <div class="card">
+                    <div class="card-header">Success Percentage Ranges (Creation d20 Roll)</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                        <div><strong style="color: #fbbf24;">1 AP:</strong> 60-100%</div>
+                        <div><strong style="color: #fbbf24;">2 AP:</strong> 50-90%</div>
+                        <div><strong style="color: #fbbf24;">3 AP:</strong> 45-80%</div>
+                        <div><strong style="color: #fbbf24;">4 AP:</strong> 40-70%</div>
+                        <div><strong style="color: #fbbf24;">5 AP:</strong> 35-60%</div>
+                        <div><strong style="color: #fbbf24;">6 AP:</strong> 30-55%</div>
+                        <div><strong style="color: #fbbf24;">7 AP:</strong> 25-50%</div>
+                        <div><strong style="color: #fbbf24;">8 AP:</strong> 20-45%</div>
+                        <div><strong style="color: #fbbf24;">9 AP:</strong> 15-40%</div>
+                        <div><strong style="color: #fbbf24;">10 AP:</strong> 10-35%</div>
+                    </div>
+                    <p style="margin-top: 1rem; font-style: italic; color: #94a3b8;">Roll 1 on d20 = minimum percentage, Roll 20 on d20 = maximum percentage</p>
+                    <p style="margin-top: 0.5rem; font-style: italic; color: #94a3b8;">Each roll adds 2% to the minimum (40 points / 20 rolls = 2% per roll for 1 AP, varies by AP level)</p>
+                </div>
+
+                <h4>Percentage to d20 Conversion</h4>
+                <p>Your permanent success percentage determines what you need to roll on d20 in combat. Each 5% equals one point on the die.</p>
+                
+                <div class="card">
+                    <div class="card-header">Success Percentage → Required d20 Roll</div>
+                    <p style="margin-bottom: 1rem;"><strong>Quick Rule:</strong> Higher percentage = easier to succeed. Every 5% makes it one number easier to roll.</p>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                        <div><strong style="color: #fbbf24;">100%:</strong> Automatic success</div>
+                        <div><strong style="color: #fbbf24;">95%:</strong> Need 2+ on d20</div>
+                        <div><strong style="color: #fbbf24;">90%:</strong> Need 3+ on d20</div>
+                        <div><strong style="color: #fbbf24;">85%:</strong> Need 4+ on d20</div>
+                        <div><strong style="color: #fbbf24;">80%:</strong> Need 5+ on d20</div>
+                        <div><strong style="color: #fbbf24;">75%:</strong> Need 6+ on d20</div>
+                        <div><strong style="color: #fbbf24;">70%:</strong> Need 7+ on d20</div>
+                        <div><strong style="color: #fbbf24;">65%:</strong> Need 8+ on d20</div>
+                        <div><strong style="color: #fbbf24;">60%:</strong> Need 9+ on d20</div>
+                        <div><strong style="color: #fbbf24;">55%:</strong> Need 10+ on d20</div>
+                        <div><strong style="color: #fbbf24;">50%:</strong> Need 11+ on d20</div>
+                        <div><strong style="color: #fbbf24;">45%:</strong> Need 12+ on d20</div>
+                        <div><strong style="color: #fbbf24;">40%:</strong> Need 13+ on d20</div>
+                        <div><strong style="color: #fbbf24;">35%:</strong> Need 14+ on d20</div>
+                        <div><strong style="color: #fbbf24;">30%:</strong> Need 15+ on d20</div>
+                        <div><strong style="color: #fbbf24;">25%:</strong> Need 16+ on d20</div>
+                        <div><strong style="color: #fbbf24;">20%:</strong> Need 17+ on d20</div>
+                        <div><strong style="color: #fbbf24;">15%:</strong> Need 18+ on d20</div>
+                        <div><strong style="color: #fbbf24;">10%:</strong> Need 19+ on d20</div>
+                        <div><strong style="color: #fbbf24;">5%:</strong> Need 20 on d20 (critical only)</div>
+                    </div>
+                    <p style="margin-top: 1rem; font-style: italic; color: #94a3b8;"><strong>Math Formula (if needed):</strong> Divide your percentage by 5, then subtract from 21. That's your target number on d20.</p>
+                    <p style="font-style: italic; color: #94a3b8;">Example: 70% ÷ 5 = 14, then 21 - 14 = 7, so you need 7+ on d20</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Example: 6 AP Buff Ability</div>
+                    <p><strong>Creation:</strong> You spend 6 AP and roll 15 on d20</p>
+                    <p>• Minimum = 30%, Maximum = 55%</p>
+                    <p>• Range = 25 percentage points across 20 rolls = 1.25% per roll</p>
+                    <p>• Your percentage = 30% + (14 × 1.25%) = 30% + 17.5% = 47.5% (rounds to 50%)</p>
+                    <p>• 50% means you need to roll 11+ on d20</p>
+                    <p style="margin-top: 1rem;"><strong>Combat Round 1:</strong> Roll 14 on d20 → SUCCESS! Your buff/debuff takes effect</p>
+                    <p><strong>Combat Round 2:</strong> Roll 9 on d20 → FAILURE! Nothing happens</p>
+                    <p><strong>Combat Round 3:</strong> Roll 18 on d20 → SUCCESS! Your buff/debuff takes effect</p>
                 </div>
 
                 <h3>Strategic Considerations</h3>
                 <div class="card">
                     <div class="card-header">Build Archetypes</div>
-                    <p><strong style="color: #fbbf24;">The Reliable (5× 2AP abilities):</strong></p>
-                    <p>Five abilities with 85% hit chance and 3-13 damage each. Consistent damage output every turn.</p>
+                    <p><strong style="color: #fbbf24;">The Reliable Damage Dealer (5× 2AP damage abilities):</strong></p>
+                    <p>Five abilities with 85% hit chance and 4-13 damage each. Consistent damage output every turn.</p>
                     
-                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">The Balanced (2× 5AP abilities):</strong></p>
-                    <p>Two abilities with 55% hit chance and 15-25 damage each. Good balance of power and reliability.</p>
+                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">The Controller (5× 2AP buff/debuff abilities):</strong></p>
+                    <p>Five abilities with 50-90% success chance. High chance to control the battlefield every turn.</p>
                     
-                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">The Glass Cannon (1× 10AP ability):</strong></p>
-                    <p>One ability with 15% hit chance and 51-61 damage. High risk, devastating reward. You'll miss a lot but when you hit, it hurts.</p>
+                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">The Balanced Hybrid (2× 5AP damage, 2× 5AP buff):</strong></p>
+                    <p>Mix of damage (55% hit, 16-25 dmg) and utility (35-60% success). Versatile in any situation.</p>
+                    
+                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">The Glass Cannon (1× 10AP damage):</strong></p>
+                    <p>One ability with 15% hit chance and 52-61 damage. High risk, devastating reward.</p>
+                    
+                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">The Hail Mary (1× 10AP buff/debuff):</strong></p>
+                    <p>One ability with 11-35% success chance. When it works, it could turn the tide of battle entirely.</p>
+                </div>
+
+                <h3>Dice Summary</h3>
+                <div class="card">
+                    <div class="card-header">What Dice Do I Roll When?</div>
+                    <p><strong style="color: #fbbf24;">Creating Damage Abilities:</strong> Roll d10 to set permanent damage</p>
+                    <p><strong style="color: #fbbf24;">Creating Buff/Debuff Abilities:</strong> Roll d20 to set permanent success percentage</p>
+                    <p><strong style="color: #fbbf24;">Using Any Ability in Combat:</strong> Roll d20 to see if it succeeds</p>
                 </div>
 
                 <h3>Future Development</h3>
-                <p><strong>Healing Abilities:</strong> Use same damage ranges but heal instead</p>
-                <p><strong>Buff/Debuff Abilities:</strong> INT/WIS/CHA based with percentage success chances (50-100% for 1 AP, 40-90% for 2 AP, etc.)</p>
                 <p><strong>Resource Costs:</strong> Using abilities costs HP, DEF, or other stats based on ability type</p>
+                <p><strong>Dual-Type Abilities:</strong> Abilities that combine damage with buffs/debuffs</p>
+                <p><strong>Elemental Affinities:</strong> How the eight elemental affinities modify ability effectiveness</p>
             `
         };
 
