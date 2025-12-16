@@ -4,344 +4,456 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NDTT Handbook</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(to bottom right, #0f172a, #1e293b, #0f172a);
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
+        header {
+            background: #020617;
+            border-bottom: 1px solid #334155;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header-content {
+            max-width: 80rem;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #fbbf24, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle { color: #94a3b8; margin-top: 0.5rem; }
+        .wip-badge {
+            background: #d97706;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid #f59e0b;
+            text-align: center;
+        }
+        .wip-badge p:first-child { font-weight: bold; font-size: 0.875rem; }
+        .wip-badge p:last-child { font-size: 0.75rem; }
+        .container {
+            display: flex;
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+        nav {
+            width: 16rem;
+            background: #1e293b;
+            border-right: 1px solid #334155;
+            min-height: calc(100vh - 120px);
+            padding: 1rem;
+        }
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.5rem; }
+        nav button {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            color: #cbd5e1;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+        nav button:hover { background: #334155; color: white; }
+        nav button.active { background: #d97706; color: white; }
+        main {
+            flex: 1;
+            padding: 2rem;
+        }
+        .content-box {
+            background: #1e293b;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            border: 1px solid #334155;
+        }
+        .card {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+        }
+        .card-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fbbf24;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #475569;
+        }
+        .card-subtitle {
+            color: #f59e0b;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        .stat-line {
+            color: #cbd5e1;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        .trait-list { margin-top: 1rem; }
+        .trait-item {
+            margin-bottom: 0.75rem;
+            padding-left: 1rem;
+            color: #cbd5e1;
+        }
+        .trait-name { color: #f59e0b; font-weight: bold; }
+        .card-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #475569;
+            color: #cbd5e1;
+            font-style: italic;
+        }
+        h2 { font-size: 1.875rem; font-weight: bold; margin-bottom: 1.5rem; color: #fbbf24; }
+        h3 { font-size: 1.5rem; color: #f59e0b; margin-top: 1.5rem; margin-bottom: 1rem; }
+        h4 { font-size: 1.25rem; color: #fbbf24; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        p { color: #cbd5e1; line-height: 1.8; margin-bottom: 1rem; }
+        strong { color: #fbbf24; }
+    </style>
 </head>
 <body>
-    <div id="root"></div>
-    
-    <script type="text/babel">
-        const { useState } = React;
-        
-        const HandbookApp = () => {
-          const [activeSection, setActiveSection] = useState('home');
-          const [editMode, setEditMode] = useState(false);
-          const [editedContent, setEditedContent] = useState('');
-          
-          const [content, setContent] = useState({
-            home: {
-              title: "Welcome to NDTT",
-              body: `<h2>About This Game</h2>
-<p>NDTT (Non-Descript Table Top RPG) is a community-driven fantasy role-playing game that empowers players to create their own custom classes, races, backstories, items, weapons, campaigns, and abilities. The core philosophy is creative freedom balanced with fair gameplay.</p>
-
-<h3>What Makes This Different?</h3>
-<p>NDTT features a unique Ability Point system that allows players to literally build their own abilities from scratch. Every character is truly unique, shaped by the player's imagination and strategic choices. The game grows with your character across multiple campaigns, creating a persistent hero that ages and evolves with you.</p>
-
-<h3>Character Creation Overview</h3>
-<p>Characters are built using six core attributes and a pool of Ability Points that you spend to create your own custom abilities. Higher-cost abilities are more powerful but harder to successfully execute, creating natural balance through risk vs. reward.</p>
-
-<h3>Campaign Persistence</h3>
-<p>Your character is locked during a campaign but carries forward to future adventures. Between campaigns, you can respec abilities, allowing your character to grow and adapt while maintaining continuity across your gaming experience.</p>`
-            },
-            
-            rules: {
-              title: "Core Rules",
-              body: `<h2>Core Attributes</h2>
-<p>Every character has six core attributes that define their capabilities:</p>
-
-<p><strong>Strength (STR)</strong> - Physical power and combat prowess. Adds directly to physical damage dealt.</p>
-
-<p><strong>Defense (DEF)</strong> - Overall defensive capability, encompassing dodge, armor, and damage reduction.</p>
-
-<p><strong>Vitality (VIT)</strong> - Health points (HP). Determines how much damage you can take before falling.</p>
-
-<p><strong>Intelligence (INT)</strong> - Mental acuity and magical power. Adds directly to magic-based damage.</p>
-
-<p><strong>Wisdom (WIS)</strong> - Perception, insight, and magical understanding. Adds directly to magic-based damage.</p>
-
-<p><strong>Charisma (CHA)</strong> - Force of personality, persuasiveness, and leadership ability.</p>
-
-<h2>Ability Point System</h2>
-<p>The heart of NDTT's character customization is the Ability Point system. Players use these points to create their own unique abilities.</p>
-
-<h3>Ability Point Progression</h3>
-<p><strong>Starting Points:</strong> 10 ability points at character creation</p>
-<p><strong>Level Gain:</strong> +2 ability points per level</p>
-<p><strong>Maximum Cap:</strong> 30 ability points total</p>
-
-<h3>Creating Abilities</h3>
-<p>When you create an ability, you spend ability points from your pool. The more points you invest, the more powerful the ability becomes.</p>
-
-<p><strong>Important Balance Mechanic:</strong> Higher-cost abilities are more powerful but HARDER to successfully execute. They require higher dice rolls to hit/succeed, creating a natural risk vs. reward system.</p>
-
-<p><strong>Example:</strong> If you spend all 10 starting points on one devastating ability, it will be incredibly powerful but very difficult to land without a high roll. Alternatively, you could create five 2-point abilities that are weaker but more reliable.</p>
-
-<h3>Using Abilities in Combat</h3>
-<p>When you use an ability, it costs resources (typically HP, Defense, or other stats). The player chooses what resource is consumed based on the nature of the ability - a blood magic spell might cost HP, while a defensive technique might temporarily reduce Defense.</p>
-
-<p><strong>Dice Resolution:</strong> NDTT uses a d20 for ability checks and combat resolution.</p>
-
-<h3>Ability Modifications</h3>
-<p><strong>During Campaign:</strong> Characters are locked - you cannot respec existing abilities, but you CAN create new abilities as you gain ability points from leveling.</p>
-
-<p><strong>Between Campaigns:</strong> Before starting a new campaign, you can respec your abilities, changing their power and cost to better fit your evolving strategy.</p>
-
-<h2>Combat System</h2>
-<p>NDTT uses a traditional turn-based combat system with d20 resolution.</p>
-
-<h2>Character Advancement</h2>
-<p>Characters level up through experience, gaining +2 ability points per level. Your character persists across campaigns, aging and growing more powerful with each adventure.</p>
-
-<h2>Mechanics In Development</h2>
-<p>The following systems are still being refined:</p>
-<p>• Exact ability power scaling formulas</p>
-<p>• Minimum/maximum damage ranges based on ability point investment</p>
-<p>• Elemental affinity integration</p>
-<p>• Detailed combat mechanics</p>`
-            },
-            
-            races: {
-              title: "Races",
-              body: `<h2>Available Races</h2>
-<p>The following races are currently available in NDTT. Each race has unique abilities and traits.</p>
-
-<h3>Human</h3>
-<p><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</p>
-<p>Versatile and adaptable. The baseline race against which all others are measured.</p>
-
-<h3>Eternasoul</h3>
-<p><strong>Size:</strong> Medium | <strong>Speed:</strong> 40ft (walking, burrowing), variable (climbing, flying, swimming)</p>
-<p><strong>Special Traits:</strong></p>
-<p>• <strong>Inhabitation:</strong> Can inhabit the body of a dead creature as a bonus action, gaining access to its physical abilities and senses. While inhabited, the Eternasoul is invisible. Can remain in a host for up to 1 hour before returning to ethereal form.</p>
-<p>• <strong>Ethereal Form:</strong> Can return to ethereal form as a bonus action, becoming transparent and immune to non-magical weapons. In this form, can move through solid objects and has a fly speed of 30ft.</p>
-<p>• <strong>Energy Synergy:</strong> When inhabiting a host, can merge energy with the host to gain access to new abilities (determined by DM).</p>
-<p>• <strong>Darkvision:</strong> Can see in the dark up to 60ft.</p>
-<p><strong>Languages:</strong> Eternasoul and one other language of your choice</p>
-<p><strong>Background:</strong> Ancient energy-based creatures from a dimension of complete darkness. After a catastrophic event, they fled to Eternia using a powerful energy-katana created by the inventor Exota. Now trapped in Eternia, they search for answers about their forced migration and seek either a way to return home or a new purpose in this world.</p>
-
-<p style="margin-top: 20px;"><em>Note: Additional races including Eternagolem, Squishion, Pickled Squishion, Fungion, Toxic Fungion, Fungiclad, Lumichen, Lumilichen, Roshuman, and Smogblimb are available. Full details coming soon!</em></p>
-
-<h2>Custom Race Guidelines</h2>
-<p><strong>Balance:</strong> Custom races should be balanced with pre-existing races. They should not have abilities or traits that are overwhelmingly powerful.</p>
-<p><strong>Game Lore Continuity:</strong> Custom races should fit within the existing game lore and world-building. They should have a proper backstory, culture, and place in the game's existing world (or custom world).</p>
-<p><strong>Game Experience:</strong> Custom races should enhance the game experience for all players and not detract from it.</p>
-<p><strong>Realism:</strong> Custom races should be believable within the context of the game's fantasy setting. They should have clear and consistent explanations of their abilities and traits.</p>
-<p><strong>Originality:</strong> Custom races should be original. Inspiration is encouraged, but if making a sub-race or offshoot of someone else's design, they must be credited.</p>
-<p><strong>Play-testing:</strong> Custom races should be play-tested to ensure balance and fun.</p>
-<p><strong>Moderation:</strong> Game developers reserve the right to moderate custom races for official data. Personal rules between friends or family groups are always acceptable.</p>`
-            },
-            
-            classes: {
-              title: "Classes",
-              body: `<h2>Classes in NDTT</h2>
-<p>Unlike traditional RPGs, NDTT doesn't strictly define classes. Instead, classes emerge organically from your ability choices, attribute distribution, and playstyle. However, we provide archetypal class concepts as inspiration and starting points.</p>
-
-<h3>Martial Archetypes</h3>
-<p><strong>Warrior</strong> - Focus on STR and DEF, create abilities centered on physical combat and weapon mastery.</p>
-<p><strong>Paladin</strong> - Balance STR with WIS/INT, combine physical abilities with supportive or divine-themed powers.</p>
-<p><strong>Ranger</strong> - Blend DEF and tactical abilities focused on precision and battlefield control.</p>
-
-<h3>Magical Archetypes</h3>
-<p><strong>Wizard</strong> - Maximize INT, invest in high-cost devastating spells that require careful timing.</p>
-<p><strong>Sorcerer</strong> - Balance INT with multiple mid-cost abilities for versatility.</p>
-<p><strong>Warlock</strong> - Create unique pact-themed abilities with interesting resource costs.</p>
-<p><strong>Druid</strong> - Mix WIS-based abilities with nature-themed transformations or summons.</p>
-
-<h3>Support Archetypes</h3>
-<p><strong>Cleric</strong> - Focus on WIS, create healing and protective abilities.</p>
-<p><strong>Healer</strong> - Specialize entirely in restorative abilities with low costs for consistency.</p>
-<p><strong>Bard</strong> - Use CHA, create abilities that buff allies or debuff enemies.</p>
-<p><strong>Dancer</strong> - Blend DEF and CHA for movement-based support abilities.</p>
-
-<h3>Specialist Archetypes</h3>
-<p><strong>Rogue</strong> - Focus on DEF and STR, create precise strike abilities with tactical advantages.</p>
-<p><strong>Alchemist</strong> - Mix INT with utility abilities like buffs, debuffs, and environmental effects.</p>
-
-<h2>Custom Class Guidelines</h2>
-<p>The beauty of NDTT is that these are just suggestions. Your "class" is defined by:</p>
-<p>• Your attribute distribution</p>
-<p>• The abilities you create</p>
-<p>• Your playstyle and strategy</p>
-<p>• Your character's story and background</p>
-
-<p><strong>Community Contributions:</strong> Players are encouraged to share their unique class concepts, ability combinations, and creative builds. As long as abilities follow the core balance mechanics (higher cost = harder to hit), anything goes!</p>
-
-<p><strong>Balance Philosophy:</strong> The ability point system naturally prevents overpowered builds. If you invest everything in one massive ability, you're vulnerable. If you spread too thin, you lack impact. Finding the sweet spot is part of the game.</p>`
-            },
-            
-            lore: {
-              title: "World & Lore",
-              body: `<h2>The World of Eternia</h2>
-<p>Eternia is a vast and varied world, shaped by powerful forces that have molded its landscapes and its inhabitants.</p>
-
-<h3>Geography</h3>
-<p>The world is mostly composed of a large continent that stretches across the northern hemisphere, bordered by vast oceans to the east and west, and towering mountain ranges to the north and south.</p>
-
-<h3>Otherworldly Regions</h3>
-
-<h4>The Eternal Storms</h4>
-<p>Located on the western coast, characterized by constant storms with lightning and thunder that never subside.</p>
-
-<h4>The Eternal Dunes</h4>
-<p>Immense sand dunes in the southern region with a hidden oasis containing unique life.</p>
-
-<h4>The Eternal Glacier</h4>
-<p>A massive glacier in the north with unique ecosystems and valuable resources.</p>
-
-<h4>The Eternal Shadow</h4>
-<p>Central region filled with corrupted magic, undead creatures, and ancient ruins.</p>
-
-<h2>Urzallism: The Eight Gods</h2>
-<p>Urzallism is the primary religion of Eternia, based on worship of eight gods representing the elements, forces, and energies of the world.</p>
-
-<h3>The Eight Gods</h3>
-<p><strong>Arid</strong> - Goddess of Air</p>
-<p><strong>Tori</strong> - Goddess of Water</p>
-<p><strong>Mark</strong> - God of Earth</p>
-<p><strong>Jarius</strong> - God of Fire</p>
-<p><strong>Seishin</strong> - God of Spirit</p>
-<p><strong>Hikari</strong> - God of Light</p>
-<p><strong>Avarielle</strong> - Goddess of Darkness</p>
-<p><strong>Kontiferus</strong> - God of Judgement</p>
-
-<p><em>Full deity descriptions and worship practices available in the complete handbook.</em></p>`
-            },
-            
-            community: {
-              title: "Community Content",
-              body: `<h2>Community-Driven Development</h2>
-<p>NDTT thrives on player creativity and contributions. This is where the magic happens - where players share their custom races, unique ability builds, homebrew items, and creative interpretations of the rules.</p>
-
-<h3>What You Can Contribute</h3>
-<p><strong>Custom Races:</strong> Design unique races with distinct traits and lore.</p>
-<p><strong>Ability Builds:</strong> Share your character's ability loadout and strategy.</p>
-<p><strong>Items & Equipment:</strong> Create weapons, armor, and magical items.</p>
-<p><strong>Campaign Settings:</strong> Develop entire worlds and storylines.</p>
-<p><strong>House Rules:</strong> Propose modifications or additions to core mechanics.</p>
-
-<h3>Submission Guidelines</h3>
-<p><strong>Balance:</strong> Content should be balanced and not overwhelmingly powerful.</p>
-<p><strong>Originality:</strong> Create original content or properly credit sources of inspiration.</p>
-<p><strong>Lore Integration:</strong> Content should fit within existing game worlds or clearly define its own setting.</p>
-<p><strong>Clarity:</strong> Explain your content clearly so others can use and enjoy it.</p>
-<p><strong>Play-testing:</strong> Test your content in actual gameplay before sharing.</p>
-
-<h3>Community Philosophy</h3>
-<p>NDTT is built by its players. Official moderation exists only for curated content libraries - your personal games are yours to shape!</p>`
-            },
-            
-            workshop: {
-              title: "Mechanics Workshop",
-              body: `<h2>Ability Creation Testing Ground</h2>
-<p>This section is for experimenting with different formulas and mechanics for the Ability Point system.</p>
-
-<h3>Core Questions Being Explored</h3>
-
-<h4>1. Ability Power Scaling</h4>
-<p><strong>Question:</strong> How does ability point cost translate to power?</p>
-<p><strong>Options being tested:</strong></p>
-<p>• Linear scaling (2 points = 2d6 damage, 4 points = 4d6 damage)</p>
-<p>• Exponential scaling (2 points = 1d8, 4 points = 3d8, 8 points = 7d8)</p>
-<p>• Tiered system (1-3 points = Tier 1, 4-6 = Tier 2, 7-10 = Tier 3)</p>
-
-<h4>2. Success Difficulty</h4>
-<p><strong>Question:</strong> How much harder should high-cost abilities be to hit?</p>
-<p><strong>Options:</strong></p>
-<p>• DC = 10 + (Ability Cost)</p>
-<p>• DC = 8 + (Ability Cost × 1.5)</p>
-<p>• Flat tiers based on cost ranges</p>
-
-<h4>3. Damage Range Formula</h4>
-<p><strong>Question:</strong> Should abilities have minimum guaranteed damage?</p>
-
-<h4>4. Resource Cost Formulas</h4>
-<p><strong>Question:</strong> How much HP/DEF/etc should using an ability cost?</p>
-
-<h3>Example Ability Builds to Test</h3>
-<p><strong>The Glass Cannon (10-point ability)</strong> - Maximum damage but very hard to hit</p>
-<p><strong>The Specialist (5+5)</strong> - Two medium abilities for balance</p>
-<p><strong>The Versatile (5×2)</strong> - Multiple reliable abilities</p>
-
-<h3>Community Input Needed</h3>
-<p>Have ideas for ability formulas? Tested a build? Share your findings to help refine the system!</p>`
-            }
-          });
-
-          const sections = [
-            { id: 'home', name: 'Home' },
-            { id: 'rules', name: 'Core Rules' },
-            { id: 'races', name: 'Races' },
-            { id: 'classes', name: 'Classes' },
-            { id: 'lore', name: 'Lore' },
-            { id: 'community', name: 'Community' },
-            { id: 'workshop', name: 'Mechanics Workshop' }
-          ];
-
-          return (
-            <div style={{minHeight: '100vh', background: 'linear-gradient(to bottom right, #0f172a, #1e293b, #0f172a)', color: '#f1f5f9'}}>
-              <header style={{background: '#020617', borderBottom: '1px solid #334155', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem'}}>
-                <div style={{maxWidth: '80rem', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                  <div>
-                    <h1 style={{fontSize: '2.25rem', fontWeight: 'bold', background: 'linear-gradient(to right, #fbbf24, #f97316)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
-                      NDTT
-                    </h1>
-                    <p style={{color: '#94a3b8', marginTop: '0.5rem'}}>Non-Descript Table Top RPG - A Community-Driven System</p>
-                  </div>
-                  <div style={{background: '#d97706', color: 'white', padding: '0.5rem 1rem', borderRadius: '0.5rem', border: '2px solid #f59e0b'}}>
-                    <p style={{fontWeight: 'bold', fontSize: '0.875rem', margin: 0}}>⚠️ WORK IN PROGRESS</p>
-                    <p style={{fontSize: '0.75rem', margin: 0}}>Active Development</p>
-                  </div>
-                </div>
-              </header>
-
-              <div style={{display: 'flex', maxWidth: '80rem', margin: '0 auto'}}>
-                <nav style={{width: '16rem', background: '#1e293b', borderRight: '1px solid #334155', minHeight: 'calc(100vh - 120px)', padding: '1rem'}}>
-                  <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
-                    {sections.map(section => (
-                      <li key={section.id} style={{marginBottom: '0.5rem'}}>
-                        <button
-                          onClick={() => setActiveSection(section.id)}
-                          style={{
-                            width: '100%',
-                            textAlign: 'left',
-                            padding: '0.75rem 1rem',
-                            borderRadius: '0.5rem',
-                            border: 'none',
-                            cursor: 'pointer',
-                            background: activeSection === section.id ? '#d97706' : 'transparent',
-                            color: activeSection === section.id ? 'white' : '#cbd5e1',
-                            transition: 'all 0.2s'
-                          }}
-                          onMouseOver={(e) => {
-                            if (activeSection !== section.id) {
-                              e.target.style.background = '#334155';
-                              e.target.style.color = 'white';
-                            }
-                          }}
-                          onMouseOut={(e) => {
-                            if (activeSection !== section.id) {
-                              e.target.style.background = 'transparent';
-                              e.target.style.color = '#cbd5e1';
-                            }
-                          }}
-                        >
-                          {section.name}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-
-                <main style={{flex: 1, padding: '2rem'}}>
-                  <div style={{background: '#1e293b', borderRadius: '0.5rem', padding: '2rem', border: '1px solid #334155'}}>
-                    <h2 style={{fontSize: '1.875rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#fbbf24'}}>
-                      {content[activeSection].title}
-                    </h2>
-                    
-                    <div 
-                      dangerouslySetInnerHTML={{ __html: content[activeSection].body }}
-                      style={{lineHeight: '1.8'}}
-                    />
-                  </div>
-                </main>
-              </div>
+    <header>
+        <div class="header-content">
+            <div>
+                <h1>NDTT</h1>
+                <p class="subtitle">Non-Descript Table Top RPG - A Community-Driven System</p>
             </div>
-          );
+            <div class="wip-badge">
+                <p>⚠️ WORK IN PROGRESS</p>
+                <p>Active Development</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul>
+                <li><button class="active" onclick="showSection('home')">Home</button></li>
+                <li><button onclick="showSection('rules')">Core Rules</button></li>
+                <li><button onclick="showSection('races')">Races</button></li>
+                <li><button onclick="showSection('classes')">Classes</button></li>
+                <li><button onclick="showSection('lore')">Lore</button></li>
+                <li><button onclick="showSection('community')">Community</button></li>
+                <li><button onclick="showSection('workshop')">Mechanics Workshop</button></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="content-box">
+                <div id="content"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const content = {
+            home: `
+                <h2>Welcome to NDTT</h2>
+                <h3>About This Game</h3>
+                <p>NDTT (Non-Descript Table Top RPG) is a community-driven fantasy role-playing game that empowers players to create their own custom classes, races, backstories, items, weapons, campaigns, and abilities. The core philosophy is creative freedom balanced with fair gameplay.</p>
+                
+                <h3>What Makes This Different?</h3>
+                <p>NDTT features a unique Ability Point system that allows players to literally build their own abilities from scratch. Every character is truly unique, shaped by the player's imagination and strategic choices.</p>
+                
+                <h3>Character Creation Overview</h3>
+                <p>Characters are built using six core attributes and a pool of Ability Points that you spend to create your own custom abilities. Higher-cost abilities are more powerful but harder to successfully execute.</p>
+                
+                <h3>Campaign Persistence</h3>
+                <p>Your character is locked during a campaign but carries forward to future adventures. Between campaigns, you can respec abilities.</p>
+            `,
+            
+            rules: `
+                <h2>Core Rules</h2>
+                <h3>Core Attributes</h3>
+                <p><strong>Strength (STR)</strong> - Physical power and combat prowess. Adds directly to physical damage dealt.</p>
+                <p><strong>Defense (DEF)</strong> - Overall defensive capability, encompassing dodge, armor, and damage reduction.</p>
+                <p><strong>Vitality (VIT)</strong> - Health points (HP). Determines how much damage you can take before falling.</p>
+                <p><strong>Intelligence (INT)</strong> - Mental acuity and magical power. Adds directly to magic-based damage.</p>
+                <p><strong>Wisdom (WIS)</strong> - Perception, insight, and magical understanding. Adds directly to magic-based damage.</p>
+                <p><strong>Charisma (CHA)</strong> - Force of personality, persuasiveness, and leadership ability.</p>
+                
+                <h3>Ability Point System</h3>
+                <h4>Ability Point Progression</h4>
+                <p><strong>Starting Points:</strong> 10 ability points at character creation</p>
+                <p><strong>Level Gain:</strong> +2 ability points per level</p>
+                <p><strong>Maximum Cap:</strong> 30 ability points total</p>
+                
+                <h4>Creating Abilities</h4>
+                <p>When you create an ability, you spend ability points from your pool. The more points you invest, the more powerful the ability becomes.</p>
+                <p><strong>Important Balance Mechanic:</strong> Higher-cost abilities are more powerful but HARDER to successfully execute. They require higher dice rolls to hit/succeed.</p>
+            `,
+            
+            races: `
+                <h2>Races</h2>
+                
+                <div class="card">
+                    <div class="card-header">Human</div>
+                    <div class="stat-line"><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</div>
+                    <div class="card-footer">Versatile and adaptable. The baseline race against which all others are measured.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Eternasoul</div>
+                    <div class="stat-line"><strong>Size:</strong> Medium | <strong>Speed:</strong> 40ft (walking, burrowing), variable (climbing, flying, swimming)</div>
+                    <div class="trait-list">
+                        <strong>Special Traits:</strong>
+                        <div class="trait-item"><span class="trait-name">• Inhabitation:</span> Can inhabit the body of a dead creature as a bonus action, gaining access to its physical abilities and senses. Can remain in a host for up to 1 hour.</div>
+                        <div class="trait-item"><span class="trait-name">• Ethereal Form:</span> Can return to ethereal form as a bonus action, becoming transparent and immune to non-magical weapons. Can move through solid objects and has a fly speed of 30ft.</div>
+                        <div class="trait-item"><span class="trait-name">• Energy Synergy:</span> When inhabiting a host, can merge energy to gain access to new abilities (determined by DM).</div>
+                        <div class="trait-item"><span class="trait-name">• Darkvision:</span> Can see in the dark up to 60ft.</div>
+                    </div>
+                    <div style="margin-top: 1rem;"><strong>Languages:</strong> Eternasoul and one other language of your choice</div>
+                    <div class="card-footer">Ancient energy-based creatures from a dimension of complete darkness. After a catastrophic event, they fled to Eternia using a powerful energy-katana. Now trapped in Eternia, they search for answers about their forced migration.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Eternagolem</div>
+                    <div class="stat-line"><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</div>
+                    <div class="trait-list">
+                        <strong>Special Traits:</strong>
+                        <div class="trait-item"><span class="trait-name">• Unique Physiology:</span> Blend of Eternasoul energy and golem construct, granting enhanced physical abilities.</div>
+                        <div class="trait-item"><span class="trait-name">• Golem Endurance:</span> Do not need to sleep, eat, or breathe.</div>
+                        <div class="trait-item"><span class="trait-name">• Ethereal Form:</span> Can turn ethereal as a bonus action. Has a fly speed of 20ft in this form.</div>
+                        <div class="trait-item"><span class="trait-name">• Golem Repair:</span> Can repair itself over time, regaining hit points at the end of each long rest.</div>
+                        <div class="trait-item"><span class="trait-name">• Katana Affinity:</span> Can wield katanas with exceptional proficiency and skill.</div>
+                        <div class="trait-item"><span class="trait-name">• Darkvision:</span> Can see in the dark up to 60ft.</div>
+                    </div>
+                    <div style="margin-top: 1rem;"><strong>Languages:</strong> Eternasoul and Common</div>
+                    <div class="card-footer">A subrace created from genetic experiments where Eternasoul energy was infused with golem constructs. Ideal for melee combat and protecting allies.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Roshuman</div>
+                    <div class="stat-line"><strong>Size:</strong> Medium | <strong>Speed:</strong> 30ft</div>
+                    <div class="trait-list">
+                        <strong>Special Traits:</strong>
+                        <div class="trait-item"><span class="trait-name">• Rooster Head:</span> Head and facial features of a rooster, including comb and wattle.</div>
+                        <div class="trait-item"><span class="trait-name">• Morning Person:</span> Gain advantage on all checks made before noon.</div>
+                        <div class="trait-item"><span class="trait-name">• Battlecry:</span> Can let out powerful battlecry as bonus action, granting temporary hit points to allies within 30ft.</div>
+                        <div class="trait-item"><span class="trait-name">• Razor Talons:</span> Sharp talons that can be used as natural weapons dealing slashing damage.</div>
+                        <div class="trait-item"><span class="trait-name">• Fowl Play:</span> Can communicate with birds and have advantage on animal handling checks.</div>
+                    </div>
+                    <div style="margin-top: 1rem;"><strong>Languages:</strong> Roshuman, Common</div>
+                    <div class="card-footer">Rare and proud race descended from powerful warriors. Despite their fearsome appearance, they are respected members of society, often serving as knights and soldiers.</div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: #1e293b; border: 1px solid #475569; border-radius: 0.5rem;">
+                    <p style="font-style: italic;"><strong>Note:</strong> Additional races including Squishion, Pickled Squishion, Fungion, Toxic Fungion, Fungiclad, Lumichen, Lumilichen, and Smogblimb are available but not yet fully formatted. Check back soon!</p>
+                </div>
+            `,
+            
+            classes: `
+                <h2>Classes</h2>
+                <p>Unlike traditional RPGs, NDTT doesn't strictly define classes. Instead, classes emerge organically from your ability choices, attribute distribution, and playstyle.</p>
+                
+                <h3>Martial Archetypes</h3>
+                
+                <div class="card">
+                    <div class="card-header">Warrior</div>
+                    <div class="card-subtitle">Focus: STR and DEF</div>
+                    <p>Create abilities centered on physical combat and weapon mastery.</p>
+                    <div class="card-footer"><strong>Role:</strong> Frontline combatant who excels at dealing and taking physical damage.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Paladin</div>
+                    <div class="card-subtitle">Focus: STR with WIS/INT</div>
+                    <p>Combine physical abilities with supportive or divine-themed powers.</p>
+                    <div class="card-footer"><strong>Role:</strong> Holy warrior who can both fight and support allies.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Ranger</div>
+                    <div class="card-subtitle">Focus: DEF and tactical abilities</div>
+                    <p>Focus on precision and battlefield control.</p>
+                    <div class="card-footer"><strong>Role:</strong> Skilled hunter and tracker who controls the battlefield.</div>
+                </div>
+
+                <h3>Magical Archetypes</h3>
+                
+                <div class="card">
+                    <div class="card-header">Wizard</div>
+                    <div class="card-subtitle">Focus: INT maximized</div>
+                    <p>Invest in high-cost devastating spells that require careful timing.</p>
+                    <div class="card-footer"><strong>Role:</strong> Glass cannon spellcaster with powerful but risky magic.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Sorcerer</div>
+                    <div class="card-subtitle">Focus: INT with versatility</div>
+                    <p>Balance INT with multiple mid-cost abilities for versatility.</p>
+                    <div class="card-footer"><strong>Role:</strong> Flexible caster with innate magical talent.</div>
+                </div>
+
+                <h3>Support Archetypes</h3>
+                
+                <div class="card">
+                    <div class="card-header">Cleric</div>
+                    <div class="card-subtitle">Focus: WIS</div>
+                    <p>Create healing and protective abilities.</p>
+                    <div class="card-footer"><strong>Role:</strong> Divine spellcaster who heals and protects allies.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Bard</div>
+                    <div class="card-subtitle">Focus: CHA</div>
+                    <p>Create abilities that buff allies or debuff enemies.</p>
+                    <div class="card-footer"><strong>Role:</strong> Inspiring performer who enhances the party.</div>
+                </div>
+            `,
+            
+            lore: `
+                <h2>World & Lore</h2>
+                
+                <h3>The World of Eternia</h3>
+                <p>Eternia is a vast and varied world, shaped by powerful forces that have molded its landscapes and its inhabitants. The world is mostly composed of a large continent stretching across the northern hemisphere, bordered by vast oceans and towering mountain ranges.</p>
+                
+                <h3>Urzallism: The Eight Gods</h3>
+                <p>Urzallism is the primary religion of Eternia, based on worship of eight gods representing the elements, forces, and energies of the world.</p>
+                
+                <div class="card">
+                    <div class="card-header">Arid</div>
+                    <div class="card-subtitle">Goddess of Air</div>
+                    <p><strong>Domain:</strong> Air, Wind, Sky</p>
+                    <p>A powerful and graceful deity who commands the winds and sky. Often depicted as a beautiful woman with wings riding on the back of a great eagle. Born from the breath of the first living beings.</p>
+                    <div class="card-footer">Known for wisdom, intelligence, fairness, and justice. A master of strategy and planning, often sought for advice by other gods and mortals.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Tori</div>
+                    <div class="card-subtitle">Goddess of Water</div>
+                    <p><strong>Domain:</strong> Water, Oceans, Rivers</p>
+                    <p>A powerful and mysterious deity who commands the oceans and rivers. Often depicted as a beautiful woman with long, flowing hair riding on the back of a great dolphin. Born from the tears of the first living beings.</p>
+                    <div class="card-footer">Known for kindness, compassion, and healing. A master of rejuvenation who seeks to bring peace and harmony to the world.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Mark</div>
+                    <div class="card-subtitle">God of Earth</div>
+                    <p><strong>Domain:</strong> Earth, Land, Forests</p>
+                    <p>A powerful and strong deity who commands the land and forests. Often depicted as a mighty warrior wielding a great axe and riding on the back of a great bear. Born from the first seeds of life.</p>
+                    <div class="card-footer">Known for strength, courage, fierce loyalty, and unwavering devotion. A master of battle and war who always stands up for what he believes in.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Jarius</div>
+                    <div class="card-subtitle">God of Fire</div>
+                    <p><strong>Domain:</strong> Fire, Heat, Flames</p>
+                    <p>A powerful and fiery deity who commands flames and heat. Often depicted as a fierce dragon who breathes fire. Born from the first sparks of life.</p>
+                    <div class="card-footer">Known for passion, energy, boldness, and daring. A master of creativity and innovation who seeks to push boundaries.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Seishin</div>
+                    <div class="card-subtitle">God of Spirit</div>
+                    <p><strong>Domain:</strong> Spirit, Soul, Essence</p>
+                    <p>A powerful and wise deity who commands the essence of life and the power of the soul. Often depicted as a wise old man carrying a staff and a book of knowledge. Born from the first whispers of life.</p>
+                    <div class="card-footer">Known for wisdom, insight, and deep understanding of the spiritual realm. A master of divination and prophecy.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Hikari</div>
+                    <div class="card-subtitle">God of Light</div>
+                    <p><strong>Domain:</strong> Light, Sun, Stars</p>
+                    <p>A powerful and radiant deity who commands the sun and stars. Often depicted as a shining sun radiating warmth and light. Born from the first glimmers of life.</p>
+                    <div class="card-footer">Known for radiance, warmth, generosity, and kindness. A master of growth and prosperity.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Avarielle</div>
+                    <div class="card-subtitle">Goddess of Darkness</div>
+                    <p><strong>Domain:</strong> Darkness, Shadows, Secrets</p>
+                    <p>A powerful and mysterious deity who commands shadows and secrets. Often depicted as a hooded figure who moves in shadows. Born from the first secrets of life.</p>
+                    <div class="card-footer">Known for cunning, intelligence, and hidden knowledge. Seeks to keep the balance between light and darkness.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Kontiferus</div>
+                    <div class="card-subtitle">God of Judgement</div>
+                    <p><strong>Domain:</strong> Justice, Judgement, Karma</p>
+                    <p>A powerful and just deity who commands the scales of justice and the fate of mortals. Often depicted as a great judge sitting on a throne of gold. Born from the first thoughts of justice and fairness.</p>
+                    <div class="card-footer">Known as the Karma Enforcer - fair and impartial, but stern. Should only be invoked when absolutely necessary, as he will judge the invoker as well.</div>
+                </div>
+            `,
+            
+            community: `
+                <h2>Community Content</h2>
+                <h3>Community-Driven Development</h3>
+                <p>NDTT thrives on player creativity and contributions. This is where the magic happens - where players share their custom races, unique ability builds, homebrew items, and creative interpretations of the rules.</p>
+                
+                <h3>What You Can Contribute</h3>
+                <p><strong>Custom Races:</strong> Design unique races with distinct traits and lore.</p>
+                <p><strong>Ability Builds:</strong> Share your character's ability loadout and strategy.</p>
+                <p><strong>Items & Equipment:</strong> Create weapons, armor, and magical items.</p>
+                <p><strong>Campaign Settings:</strong> Develop entire worlds and storylines.</p>
+                <p><strong>House Rules:</strong> Propose modifications or additions to core mechanics.</p>
+                
+                <h3>Submission Guidelines</h3>
+                <p><strong>Balance:</strong> Content should be balanced and not overwhelmingly powerful.</p>
+                <p><strong>Originality:</strong> Create original content or properly credit sources of inspiration.</p>
+                <p><strong>Lore Integration:</strong> Content should fit within existing game worlds or clearly define its own setting.</p>
+                <p><strong>Play-testing:</strong> Test your content in actual gameplay before sharing.</p>
+            `,
+            
+            workshop: `
+                <h2>Mechanics Workshop</h2>
+                <p>This section is for experimenting with different formulas and mechanics for the Ability Point system.</p>
+                
+                <h3>Core Questions Being Explored</h3>
+                
+                <h4>1. Ability Power Scaling</h4>
+                <p><strong>Question:</strong> How does ability point cost translate to power?</p>
+                <p>• Linear scaling (2 points = 2d6 damage)</p>
+                <p>• Exponential scaling (2 points = 1d8, 4 points = 3d8)</p>
+                <p>• Tiered system (1-3 = Tier 1, 4-6 = Tier 2, 7-10 = Tier 3)</p>
+                
+                <h4>2. Success Difficulty</h4>
+                <p><strong>Question:</strong> How much harder should high-cost abilities be to hit?</p>
+                <p>• DC = 10 + (Ability Cost)</p>
+                <p>• DC = 8 + (Ability Cost × 1.5)</p>
+                <p>• Flat tiers based on cost ranges</p>
+                
+                <h3>Example Builds</h3>
+                <p><strong>The Glass Cannon (10-point ability)</strong> - Maximum damage but very hard to hit</p>
+                <p><strong>The Specialist (5+5)</strong> - Two medium abilities for balance</p>
+                <p><strong>The Versatile (5×2)</strong> - Multiple reliable abilities</p>
+            `
         };
 
-        ReactDOM.render(<HandbookApp />, document.getElementById('root'));
+        function showSection(section) {
+            document.getElementById('content').innerHTML = content[section];
+            
+            // Update active button
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Load home content on page load
+        document.getElementById('content').innerHTML = content.home;
     </script>
 </body>
 </html>
