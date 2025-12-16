@@ -419,26 +419,77 @@
             
             workshop: `
                 <h2>Mechanics Workshop</h2>
-                <p>This section is for experimenting with different formulas and mechanics for the Ability Point system.</p>
+                <p>Here's the finalized Ability Point system mechanics for damage-based abilities.</p>
                 
-                <h3>Core Questions Being Explored</h3>
+                <h3>Ability Creation Process</h3>
+                <p><strong>Step 1:</strong> Decide how many Ability Points to invest (1-10 AP maximum per ability)</p>
+                <p><strong>Step 2:</strong> Roll d20 to determine your ability's permanent base damage</p>
+                <p><strong>Step 3:</strong> Use the table below to find your damage range</p>
                 
-                <h4>1. Ability Power Scaling</h4>
-                <p><strong>Question:</strong> How does ability point cost translate to power?</p>
-                <p>• Linear scaling (2 points = 2d6 damage)</p>
-                <p>• Exponential scaling (2 points = 1d8, 4 points = 3d8)</p>
-                <p>• Tiered system (1-3 = Tier 1, 4-6 = Tier 2, 7-10 = Tier 3)</p>
+                <div class="card">
+                    <div class="card-header">Damage Ranges (Creation Roll)</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                        <div><strong style="color: #fbbf24;">1 AP:</strong> 1-10 damage</div>
+                        <div><strong style="color: #fbbf24;">2 AP:</strong> 3-13 damage</div>
+                        <div><strong style="color: #fbbf24;">3 AP:</strong> 6-16 damage</div>
+                        <div><strong style="color: #fbbf24;">4 AP:</strong> 10-20 damage</div>
+                        <div><strong style="color: #fbbf24;">5 AP:</strong> 15-25 damage</div>
+                        <div><strong style="color: #fbbf24;">6 AP:</strong> 21-31 damage</div>
+                        <div><strong style="color: #fbbf24;">7 AP:</strong> 27-37 damage</div>
+                        <div><strong style="color: #fbbf24;">8 AP:</strong> 34-44 damage</div>
+                        <div><strong style="color: #fbbf24;">9 AP:</strong> 42-52 damage</div>
+                        <div><strong style="color: #fbbf24;">10 AP:</strong> 51-61 damage</div>
+                    </div>
+                </div>
+
+                <h3>Combat Usage</h3>
+                <p>When using your ability in combat, roll d20 "to hit". You must meet or exceed the difficulty based on your ability's cost:</p>
                 
-                <h4>2. Success Difficulty</h4>
-                <p><strong>Question:</strong> How much harder should high-cost abilities be to hit?</p>
-                <p>• DC = 10 + (Ability Cost)</p>
-                <p>• DC = 8 + (Ability Cost × 1.5)</p>
-                <p>• Flat tiers based on cost ranges</p>
+                <div class="card">
+                    <div class="card-header">To Hit Difficulty</div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                        <div><strong style="color: #fbbf24;">1 AP:</strong> Need 2+ (95% chance)</div>
+                        <div><strong style="color: #fbbf24;">2 AP:</strong> Need 4+ (85% chance)</div>
+                        <div><strong style="color: #fbbf24;">3 AP:</strong> Need 6+ (75% chance)</div>
+                        <div><strong style="color: #fbbf24;">4 AP:</strong> Need 8+ (65% chance)</div>
+                        <div><strong style="color: #fbbf24;">5 AP:</strong> Need 10+ (55% chance)</div>
+                        <div><strong style="color: #fbbf24;">6 AP:</strong> Need 12+ (45% chance)</div>
+                        <div><strong style="color: #fbbf24;">7 AP:</strong> Need 14+ (35% chance)</div>
+                        <div><strong style="color: #fbbf24;">8 AP:</strong> Need 16+ (25% chance)</div>
+                        <div><strong style="color: #fbbf24;">9 AP:</strong> Need 17+ (20% chance)</div>
+                        <div><strong style="color: #fbbf24;">10 AP:</strong> Need 18+ (15% chance)</div>
+                    </div>
+                </div>
+
+                <h3>Damage Bonus</h3>
+                <p>If you hit, you deal your permanent base damage PLUS a bonus:</p>
+                <p><strong>Bonus = (Your Roll - Minimum Needed) × 1%</strong></p>
                 
-                <h3>Example Builds</h3>
-                <p><strong>The Glass Cannon (10-point ability)</strong> - Maximum damage but very hard to hit</p>
-                <p><strong>The Specialist (5+5)</strong> - Two medium abilities for balance</p>
-                <p><strong>The Versatile (5×2)</strong> - Multiple reliable abilities</p>
+                <div class="card">
+                    <div class="card-header">Example: 5 AP Ability</div>
+                    <p><strong>Creation:</strong> You spend 5 AP and roll 18 on d20 → Your permanent base damage is 23</p>
+                    <p style="margin-top: 1rem;"><strong>Combat Round 1:</strong> Roll 12 to hit (need 10+) → HIT! Deal 23 + 2% = 23.46 damage</p>
+                    <p><strong>Combat Round 2:</strong> Roll 8 to hit (need 10+) → MISS!</p>
+                    <p><strong>Combat Round 3:</strong> Roll 19 to hit (need 10+) → HIT! Deal 23 + 9% = 25.07 damage</p>
+                </div>
+
+                <h3>Strategic Considerations</h3>
+                <div class="card">
+                    <div class="card-header">Build Archetypes</div>
+                    <p><strong style="color: #fbbf24;">The Reliable (5× 2AP abilities):</strong></p>
+                    <p>Five abilities with 85% hit chance and 3-13 damage each. Consistent damage output every turn.</p>
+                    
+                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">The Balanced (2× 5AP abilities):</strong></p>
+                    <p>Two abilities with 55% hit chance and 15-25 damage each. Good balance of power and reliability.</p>
+                    
+                    <p style="margin-top: 1rem;"><strong style="color: #fbbf24;">The Glass Cannon (1× 10AP ability):</strong></p>
+                    <p>One ability with 15% hit chance and 51-61 damage. High risk, devastating reward. You'll miss a lot but when you hit, it hurts.</p>
+                </div>
+
+                <h3>Future Development</h3>
+                <p><strong>Healing Abilities:</strong> Use same damage ranges but heal instead</p>
+                <p><strong>Buff/Debuff Abilities:</strong> INT/WIS/CHA based with percentage success chances (50-100% for 1 AP, 40-90% for 2 AP, etc.)</p>
+                <p><strong>Resource Costs:</strong> Using abilities costs HP, DEF, or other stats based on ability type</p>
             `
         };
 
